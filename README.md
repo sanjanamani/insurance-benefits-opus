@@ -50,8 +50,10 @@ A Streamlit-based web application that helps patients understand their insurance
 ## Installation
 
 ### Prerequisites
-- Python 3.9 or higher
+- Python 3.9 or higher (Python 3.11 or 3.12 recommended for Windows)
 - Anthropic API key ([Get one here](https://console.anthropic.com/))
+
+> **Windows Users:** See [WINDOWS_SETUP.md](WINDOWS_SETUP.md) for detailed Windows-specific instructions and troubleshooting.
 
 ### Setup
 
@@ -66,9 +68,20 @@ cd insurance-benefits-opus
 pip install -r requirements.txt
 ```
 
+**Windows PowerShell:**
+```powershell
+py -m pip install -r requirements.txt
+```
+
 3. Configure environment variables:
 ```bash
 cp .env.example .env
+```
+
+**Windows PowerShell:**
+```powershell
+copy .env.example .env
+notepad .env
 ```
 
 4. Edit `.env` and add your Anthropic API key:
@@ -79,6 +92,11 @@ ANTHROPIC_API_KEY=your_actual_api_key_here
 5. Run the application:
 ```bash
 streamlit run app.py
+```
+
+**Windows PowerShell:**
+```powershell
+py -m streamlit run app.py
 ```
 
 6. Open your browser to `http://localhost:8501`

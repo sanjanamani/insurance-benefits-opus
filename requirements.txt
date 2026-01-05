@@ -1,30 +1,29 @@
 # Core Framework
-streamlit==1.32.0
+streamlit>=1.32.0
 
 # AI/ML
-anthropic==0.21.3
+anthropic>=0.40.0
 
 # Data Processing
-pandas==2.2.1
-numpy==1.26.4
-
-# Database
-sqlite3-python==1.0.0
+pandas>=2.0.0
+numpy>=1.24.0
 
 # Visualization
-plotly==5.19.0
+plotly>=5.19.0
 
 # File Processing
-PyPDF2==3.0.1
-pdf2image==1.17.0
-Pillow==10.2.0
-pytesseract==0.3.10
+PyPDF2>=3.0.0
+Pillow>=10.0.0
 
 # Environment Variables
-python-dotenv==1.0.1
+python-dotenv>=1.0.0
 
 # HTTP Requests (for CMS data fetching)
-requests==2.31.0
+requests>=2.31.0
 
 # Utilities
-pydantic==2.6.3
+pydantic>=2.0.0
+
+# Note: sqlite3 is built into Python, no separate package needed
+# Note: pdf2image and pytesseract require system dependencies (poppler, tesseract)
+#       and are optional for basic functionality
