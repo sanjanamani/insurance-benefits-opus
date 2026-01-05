@@ -390,3 +390,51 @@ Please provide a helpful, accurate answer in 2-3 sentences. If the information n
 
     except Exception as e:
         return f"Error answering question: {str(e)}"
+
+
+def merge_parsed_results(results: list[Dict[str, Any]]) -> Dict[str, Any]:
+    """
+    Merge multiple parsed insurance documents into a single comprehensive result
+
+    Args:
+        results: List of parsed insurance document results
+
+    Returns:
+        Merged dictionary with comprehensive coverage information
+    """
+    if not results:
+        return {"success": False, "error": "No results to merge"}
+
+    if len(results) == 1:
+        return results[0]
+
+    # Start with the first result as base
+    merged = results[0].copy()
+
+    # Merge data from all documents
+    for result in results[1:]:
+        # Update with non-empty values
+        for key, value in result.items():
+            if key == "success":
+                continue
+
+            # If current value is empty or "N/A", take new value
+            if not merged.get(key) or merged.get(key) == "N/A" or merged.get(key) == "Not found":
+                if value and value != "N/A" and value != "Not found":
+                    merged[key] = value
+
+            # For lists, merge them
+            elif isinstance(value, list) and isinstance(merged.get(key), list):
+                # Combine lists and remove duplicates
+                merged[key] = list(set(merged[key] + value))
+
+            # For dictionaries, merge them
+            elif isinstance(value, dict) and isinstance(merged.get(key), dict):
+                merged[key].update(value)
+
+    # Combine all plain English summaries if multiple
+    summaries = [r.get('plain_english_summary', '') for r in results if r.get('plain_english_summary')]
+    if len(summaries) > 1:
+        merged['plain_english_summary'] = "\n\n---\n\n".join(summaries)
+
+    return merged
